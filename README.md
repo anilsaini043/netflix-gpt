@@ -1,4 +1,8 @@
 # Netflix GPT
+    - Created project setup
+    - Installed tailwind
+    - Route setup
+    - Sign in and sign up form conditionally
 
 - Created app using VITE  
     > npm create vite@latest
