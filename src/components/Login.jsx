@@ -1,16 +1,28 @@
-import React, { useState } from 'react'
-import Header from './Header'
+import React, { useRef, useState } from 'react';
+import Header from './Header';
+import { checkValideData } from '../utils/validate.js';
 
 const Login = () => {
 
     const [isSignInForm, setIsSignInForm] = useState(true);
+    const [errorMessage, setErrorMessage] = useState(null);
+
+    const name = useRef(null);
+    const email = useRef(null);
+    const password = useRef(null);
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault()
+        const message = checkValideData(name?.current?.value, email.current.value, password.current.value);
+        setErrorMessage(message)
+    }
 
     const toggleSignInForm = () => {
         setIsSignInForm(!isSignInForm)
     }
 
     return (
-        <div >
+        <div>
             <Header />
             <div className='absolute inset-0'>
                 <img src='https://assets.nflxext.com/ffe/siteui/vlv3/fa7be975-efc3-48c6-8188-f07fdd1aa476/web/IN-en-20250428-TRIFECTA-perspective_e045264e-b4d4-4a6f-b2cc-f95e3344a332_large.jpg'
@@ -28,22 +40,32 @@ const Login = () => {
                         {isSignInForm ? "Sign In" : "Sign Up"}
                     </h1>
                     {!isSignInForm && <input
+                        ref={name}
                         type="text"
                         placeholder="Full name"
                         className="w-full p-3 mb-4 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none"
-                    />
+                        onChange={(e) => {
+                            const onlyChars = e.target.value.replace(/[^A-Za-z ]/g, "").toUpperCase();
+                            name.current.value = onlyChars;
+                        }}
+                    />                    
                     }
+                    
                     <input
+                        ref={email}
                         type="text"
                         placeholder="Email or phone number"
                         className="w-full p-3 mb-4 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none"
                     />
+                   
                     <input
+                        ref={password}
                         type="password"
                         placeholder="Password"
-                        className="w-full p-3 mb-6 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none"
+                        className="w-full p-3 mb-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none"
                     />
-                    <button className="w-full bg-red-600 hover:bg-red-700 transition-colors p-3 rounded font-medium">
+                    <p className="text-red-500 text-xs ml-2 mb-4">{errorMessage}</p>
+                    <button className="w-full bg-red-600 hover:bg-red-700 transition-colors p-3 rounded font-medium cursor-pointer" onClick={handleFormSubmit}>
                         {isSignInForm ? "Sign In" : "Sign Up"}
                     </button>
                     <p className="text-gray-400 mt-6 text-sm">
