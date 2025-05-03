@@ -1,0 +1,23 @@
+# Netflix GPT
+
+- Created app using VITE  
+    > npm create vite@latest
+
+- Configured tailwind css
+
+# Features
+
+- Login/Signup
+    - Sign in / Sign up form
+    - Redirect to Browse page
+
+- Browse (after authentication)
+    - Header
+    - Main movie
+        - Trailer in background
+        - Title and description
+        - Movie suggestion
+            - MovieLists
+    - Search bar
+    - Movie suggestions
+    
