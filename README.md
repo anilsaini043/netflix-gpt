@@ -6,9 +6,14 @@
     - Sign in and sign up form conditionally
     - Form validation
     - useRef hook
+    - Firebase authentication (using google firebase)
+    - Firebase setup
+    - Deployed at firebase production and get url to open app
+    - Create signup user account
+    - Create React Redux Toolkit store
 
 - Created app using VITE  
-    > npm create vite@latest
+    - npm create vite@latest
 
 - Configured tailwind css
 

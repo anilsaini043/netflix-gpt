@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react';
 import Header from './Header';
 import { checkValideData } from '../utils/validate.js';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../utils/firebase.js';
 
 const Login = () => {
 
@@ -13,8 +15,38 @@ const Login = () => {
 
     const handleFormSubmit = (e) => {
         e.preventDefault()
-        const message = checkValideData(name?.current?.value, email.current.value, password.current.value);
-        setErrorMessage(message)
+        const message = checkValideData(email.current.value, password.current.value);
+        setErrorMessage(message);
+        if (message) return;
+
+        // Sign in / sign up logic
+        if (!isSignInForm) {
+            // Sign up
+            createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    console.log("usesr", user)
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setErrorMessage(errorCode + "-" + errorMessage)
+                });
+
+        } else {
+            // Sign in logic
+            signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    console.log("login user", user)
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setErrorMessage(errorCode + "-" + errorMessage)
+                });
+        }
+
     }
 
     const toggleSignInForm = () => {
@@ -48,16 +80,16 @@ const Login = () => {
                             const onlyChars = e.target.value.replace(/[^A-Za-z ]/g, "").toUpperCase();
                             name.current.value = onlyChars;
                         }}
-                    />                    
+                    />
                     }
-                    
+
                     <input
                         ref={email}
                         type="text"
                         placeholder="Email or phone number"
                         className="w-full p-3 mb-4 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none"
                     />
-                   
+
                     <input
                         ref={password}
                         type="password"
