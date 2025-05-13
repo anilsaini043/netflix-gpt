@@ -11,6 +11,10 @@
     - Deployed at firebase production and get url to open app
     - Create signup user account
     - Create React Redux Toolkit store
+    - User store created
+    - Update profile after create/sign up user using firebase
+    - Signout user
+    - useSelector, useNavigation, useDispatch hook used
 
 - Created app using VITE  
     - npm create vite@latest
