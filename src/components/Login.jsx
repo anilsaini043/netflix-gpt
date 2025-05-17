@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import Header from './Header';
 import { checkValideData } from '../utils/validate.js';
 import { addUser } from '../utils/store/userSlice.js';
+import { BACKGROUND_IMAGE, USER_ICON } from "../utils/constants.js";
 
 const Login = () => {
 
@@ -32,15 +33,13 @@ const Login = () => {
                     const user = userCredential.user;
                     // Update user profile after sign up
                     updateProfile(user, {
-                        displayName: name.current.value, photoURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGjqeuUmIgRcJJSKf9Oyvw-i6VRj3Nq5LZpvyhH7czkcNJ7YwJRflvel5onEPrwa-h49E&usqp=CAU"
+                        displayName: name.current.value, photoURL: USER_ICON
                     }).then(() => {
                         const { uid, email, displayName, photoURL } = auth.currentUser;  // Getting current updated user
                         dispatch(addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL }));
-                        navigate("/browse")
                     }).catch((error) => {
                         setErrorMessage(error.message)
                     });
-
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -53,7 +52,6 @@ const Login = () => {
             signInWithEmailAndPassword(auth, email.current.value, password.current.value)
                 .then((userCredential) => {
                     const user = userCredential.user;
-                    navigate("/browse")
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -72,7 +70,7 @@ const Login = () => {
         <div>
             <Header />
             <div className='absolute inset-0'>
-                <img src='https://assets.nflxext.com/ffe/siteui/vlv3/fa7be975-efc3-48c6-8188-f07fdd1aa476/web/IN-en-20250428-TRIFECTA-perspective_e045264e-b4d4-4a6f-b2cc-f95e3344a332_large.jpg'
+                <img src={BACKGROUND_IMAGE}
                     alt='logo'
                     className="w-full h-full object-cover"
                 />
