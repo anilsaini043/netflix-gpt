@@ -24,6 +24,8 @@
     - Fetch trailer movie with key and auto play background and embed iframe
     - Custom hook for trailer video and update the movie slice store
     - Done main container with youtube autoplay video
+    - Build secondary component
+    - Created usePopularMovies/useTopRatedMovies/useUpcomingMovies and displayed
 
 - Created app using VITE  
     - npm create vite@latest

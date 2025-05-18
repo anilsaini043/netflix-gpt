@@ -12,6 +12,7 @@ export const API_OPTIONS = {
     }
 };
 
+export const POSTER_BASE_PATH = "https://image.tmdb.org/t/p/w780";
 
 
 
